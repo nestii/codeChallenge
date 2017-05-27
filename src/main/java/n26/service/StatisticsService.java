@@ -21,7 +21,7 @@ public class StatisticsService {
         transactions.add(transaction);
     }
 
-    public synchronized Statistic getStatistic() {
+    public Statistic getStatistic() {
         return statistic;
     }
 
@@ -50,7 +50,5 @@ public class StatisticsService {
         }
         statistic = new Statistic(sum, max, min, quantity);
     }
-
-
 
 }
