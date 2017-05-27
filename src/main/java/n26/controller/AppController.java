@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class AppController {
 
+    private final StatisticsService statisticsService;
+
     @Autowired
-    private StatisticsService statisticsService;
+    public AppController(final StatisticsService statisticsService) {
+        this.statisticsService = statisticsService;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/statistics")
     public ResponseEntity<Statistic> getStatistics() {
@@ -23,7 +27,7 @@ public class AppController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/transactions")
-    public ResponseEntity<Void> addTransaction(@RequestBody Transaction transaction) {
+    public ResponseEntity<Void> addTransaction(@RequestBody final Transaction transaction) {
         long currentTimestamp = System.currentTimeMillis();
 
         if(statisticsService.isTransactionOlderThanMinute(transaction, currentTimestamp)) {
